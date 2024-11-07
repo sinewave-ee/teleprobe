@@ -342,7 +342,6 @@ async fn list_targets(creds: &Credentials) -> anyhow::Result<()> {
 
     if res.status().is_success() {
         let text = res.text().await?;
-        println!("{text}");
         let targets: api::TargetList = serde_json::from_str(&text)?;
 
         println!("Teleprobe server supports the following targets:");
