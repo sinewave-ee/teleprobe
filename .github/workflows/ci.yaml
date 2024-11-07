@@ -10,7 +10,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Install libusb, libudev (linux)
         run: |
@@ -22,10 +22,23 @@ jobs:
       - name: Cache Dependencies
         uses: Swatinem/rust-cache@v1.3.0
         
-      - name: Build
+      # - name: Build
+      #   run: |
+      #     cargo build --manifest-path teleprobe/Cargo.toml
+      #     cargo build --manifest-path teleprobe/Cargo.toml --release
+      #     cargo test --manifest-path teleprobe/Cargo.toml
+      #     cargo test --manifest-path teleprobe/Cargo.toml --release
+
+      - name: Install cargo-deb
         run: |
-          cargo build --manifest-path teleprobe/Cargo.toml
-          cargo build --manifest-path teleprobe/Cargo.toml --release
-          cargo test --manifest-path teleprobe/Cargo.toml
-          cargo test --manifest-path teleprobe/Cargo.toml --release
-    
+          cargo install cargo-deb
+
+      - name: Build Debian Package
+        run: |
+          cargo deb --manifest-path teleprobe/Cargo.toml
+
+      - name: Upload Debian Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: teleprobe-aarch64
+          path: teleprobe/target/debian/*.deb
