@@ -2,7 +2,7 @@
 Description=Teleprobe
 
 [Service]
-ExecStart=/usr/bin/teleprobe
+ExecStart=/usr/bin/teleprobe server
 
 [Install]
 WantedBy=multi-user.target

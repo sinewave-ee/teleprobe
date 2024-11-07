@@ -50,4 +50,4 @@ debug = 2
 
 [package.metadata.deb]
 maintainer-scripts = "debian/"
-systemd-units = {}
+systemd-units = { enable = false }
