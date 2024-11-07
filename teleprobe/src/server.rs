@@ -282,7 +282,7 @@ struct Context {
 }
 
 pub async fn serve(port: u16) -> anyhow::Result<()> {
-    let config = fs::read("config.yaml")?;
+    let config = fs::read("config.yaml").or_else(|_| fs::read("/etc/teleprobe.yaml"))?;
     let config: Config = serde_yaml::from_slice(&config)?;
 
     // TODO support none or multiple oidc issuers.

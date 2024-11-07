@@ -1,0 +1,8 @@
+[Unit]
+Description=Teleprobe
+
+[Service]
+ExecStart=/usr/bin/teleprobe
+
+[Install]
+WantedBy=multi-user.target
